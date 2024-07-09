@@ -5,5 +5,5 @@ COLLABORATORS :
 --
 
 - [Sweta Thakare](https://github.com/Swetathakare)
-- [Shradha Gadhave](https://github.com/)
-- [Aditi Jaikar](https://github.com/)
+- [Shradha Gadhave](https://github.com/ShradhaGadhave2004)
+- [Aditi Jaikar](https://github.com/aditi2503jaikar)
