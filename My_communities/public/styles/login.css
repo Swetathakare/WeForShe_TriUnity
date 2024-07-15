@@ -1,0 +1,61 @@
+body {
+    background: linear-gradient(to right, #ff9a9e, #fecfef);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 150px; /* Adjusted size for the logo */
+    height: auto;
+}
+
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Adjusted width for the login box */
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #ff9a9e; /* Same color as the button background */
+    font-family: 'Arial', sans-serif; /* Example font family */
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* Adjusted font size */
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #ff9a9e;
+    color: white;
+    cursor: pointer;
+    font-size: 16px; /* Adjusted font size */
+}
+
+button:hover {
+    background: #fecfef;
+}

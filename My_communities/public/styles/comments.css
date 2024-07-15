@@ -1,0 +1,124 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fce4ec; /* Light pink background */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h1 {
+    color: #e91e63; /* Dark pink color for the heading */
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .comments {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .comment {
+    background-color: #fff; /* White background for comment cards */
+    border: 1px solid #e91e63; /* Dark pink border */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment p {
+    margin: 0;
+    padding: 5px 0;
+  }
+  
+  .comment p:first-child {
+    font-size: 1.1em;
+    color: #333;
+  }
+  
+  .comment p:last-child {
+    font-size: 0.9em;
+    color: #777;
+    text-align: right;
+  }
+  
+  .add-comment-button {
+    background-color: #e91e63; /* Dark pink background */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1em;
+  }
+  
+  .add-comment-button:hover {
+    background-color: #d81b60; /* Darker pink on hover */
+  }
+  
+  .dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .close-button {
+    align-self: flex-end;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #e91e63; /* Dark pink for the close button */
+  }
+  
+  textarea {
+    width: 95%;
+    height: 100px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+  }
+  
+  textarea:focus {
+    outline: none;
+    border-color: #e91e63; /* Dark pink border on focus */
+  }
+  
+  button {
+    background-color: #e91e63; /* Dark pink background */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  button:hover {
+    background-color: #d81b60; /* Darker pink on hover */
+  }
+  

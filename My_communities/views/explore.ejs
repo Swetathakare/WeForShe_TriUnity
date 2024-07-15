@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Communities</title>
+  <link rel="stylesheet" href="/styles/explore.css">
+</head>
+<body>
+  <div class="container">
+    <a href="/dashboard" class="back-button">Back to Dashboard</a>
+    <h2 style="color: #e91e63;">My Communities</h2>
+    <div class="my-communities">
+      <% userCommunities.forEach(community => { %>
+        <a href="/community/<%= community.Community_Id %>/posts" class="community-button">
+          <%= community.Community_Name %>
+        </a>
+      <% }); %>
+    </div>
+
+    <h2 style="color: #e91e63;">Explore Communities</h2>
+    <div class="explore-communities">
+      <% exploreCommunities.forEach(community => { %>
+        <div class="community">
+          <h3><a href="/community/<%= community.Community_Id %>"><%= community.Community_Name %></a></h3>
+          <% if (community.isJoined) { %>
+            <button class="join-button joined" disabled>Joined</button>
+          <% } else { %>
+            <form action="/join" method="GET">
+              <input type="hidden" name="community_id" value="<%= community.Community_Id %>">
+              <button class="join-button" type="submit">Join</button>
+            </form>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+
+  <script src="/scripts.js"></script>
+</body>
+</html>

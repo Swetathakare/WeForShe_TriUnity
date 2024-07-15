@@ -1,0 +1,104 @@
+/* communityDetails.css */
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fecfef);
+    margin: 0;
+    padding: 0;
+}
+
+/* Container styles */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+h1 {
+    color: #e91e63;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Community details styles */
+.community-details {
+    text-align: center; /* Center align the content */
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Community image styles */
+.community-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.community-details h2 {
+    color: #e91e63;
+    margin-bottom: 10px;
+}
+
+.community-details p {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Leaderboard styles */
+.leaderboard {
+    align-items: center;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.leaderboard h3 {
+    color: #e91e63;
+    margin-bottom: 10px;
+}
+
+.leaderboard ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.leaderboard ul li {
+    margin-bottom: 10px;
+}
+
+.leaderboard ul li:before {
+    content: "🌟"; /* Star icon before each leaderboard item */
+    margin-right: 10px;
+}
+
+/* Join button styles */
+.join-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e91e63;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.join-button:hover {
+    background-color: #c2185b;
+}
+
+.joined {
+    background-color: #4caf50;
+    cursor: default;
+}
+
+.joined:hover {
+    background-color: #4caf50;
+}
