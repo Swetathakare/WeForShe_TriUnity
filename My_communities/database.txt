@@ -1,0 +1,224 @@
+DATABASE QUERIES
+**************USERS*****************
+
+CREATE TABLE users
+ ( 
+ U_id INT PRIMARY KEY AUTO_INCREMENT,
+    U_Name VARCHAR(50) NOT NULL,
+    Password VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone_No VARCHAR(20),
+    Myntra_Points INT DEFAULT 0 
+);
+
+INSERT INTO Users (U_id, U_Name, Password, Email, Phone_No, Myntra_Points) VALUES (101, 'Aditi Jaikar', '1234', 'aditij@gmail.com', '9503187699', 0), (102, 'Shradha Gadhave', '9876', 'gshradha@gmail.com', '9503187697', 1), (103, 'Shweta Nikam', '4567', 'nikamsweta@gmail.com', '7038367690', 3), (104, 'Atharv Chorat', '6785', 'atharva@gmail.com', '987654321', 0), (105, 'Soham Banarswale', '8765', 'sohamb@gmail.com', '8767066459', 9), (106, 'Jinal Oswal', 'jina45', 'jinaoswal@gmail.com', '9234567890', 150), (107, 'Manu Daund', 'manu78', 'Manu@gmail.com', '9234567899', 12), (108, 'Tanu Kadus', 'tan32', 'kadus@gmail.com', '9234557799', 138), (109, 'Anil Kumar', 'anil279', 'anil.kumar@gmail.com', '9567890123', 50), (110, 'Sairaj Chavan', 'sai45', 'saichavan@gmail.com', '9567880123', 32), (111, 'Meera Nair', 'meera2020', 'meera.nair@gmail.com', '9678901234', 89), (112, 'Shamika Borkar', 'shamu5', 'shamu@gmail.com', '8765432190', 65), (113, 'Tara Menon', 'tara555', 'tara.menon@gmail.com', '9222345678', 380), (114, 'Avishka Bankar', 'avi89', 'avibankar@gmail.com', '9223345678', 890), (115, 'Pooja Singh', 'pooja111', 'pooja.singh@gmail.com', '9778901234', 210), (116, 'Tanisha Jawale', 'tanisha3', 'jawale.tan@gmail.com', '9788901234', 87), (117, 'Saloni Thakare', 'sao90', 'saloni.cum@gmail.com', '8907654321', 67), (118, 'Abhishek Borkar', 'abhi87', 'abhi45@gmail.com', '7689123450', 90), (119, 'Rishita Kage', 'ri67', 'kagerishita@gmail.com', '7689123455', 73), (120, 'Sohani Jadhav', 'soha78', 'soha@gmail.com', '9503687698', 89), (121, 'Atharv Haware', 'ath45', 'ath78@gmail.com', '9087654321', 80), (122, 'Sahil Patil', 'patil89', 'sahilpatil@gmail.com', '9087651234', 78), (123, 'Aryan Raskar', 'aryan7', 'aryan@gmail.com', '7034367699', 65), (124, 'Omkar Wadkar', 'omi67', 'omiwadkar@gmail.com', '8765439087', 86), (125, 'Siddhart Joshi', 'siddh665', 'siddh655@gmail.com', '8765908657', 91);
+
+
+*******************COMMUNITY*********************
+CREATE TABLE community (
+
+ Community_Id INT PRIMARY KEY,
+ Community_Name VARCHAR(50), 
+Description VARCHAR(255), 
+Creation_Date DATE ,
+picture LONGBLOB
+);
+
+INSERT INTO Community (Community_Id, Community_Name, Description, Creation_Date) VALUES
+(401, 'Boho Beauties', 'A community for boho lovers', '2023-01-15'),
+(402, 'Street Style Stars', 'Street fashion and trends', '2022-05-21'),
+(403, 'Sporty Spice', 'Sportswear and athleisure trends', '2024-01-15'),
+(404, 'Festival Fashionistas', 'Fashion for festivals and events', '2024-03-28'),
+(405, 'Filmy Andaaz', 'Film lovers Fashion community', '2023-10-14'),
+(406, 'Marathi Tadka', 'Marathi traditional fashion and tips', '2022-10-14'),
+(407, 'Corporate Girlies', 'Professional and corporate fashion', '2023-12-22');
+
+
+*******************POSTS**************
+CREATE TABLE posts (
+    PostID INT PRIMARY KEY AUTO_INCREMENT,
+    Community_Id INT,
+    Description VARCHAR(255),
+    Likes INT,
+    Dislikes INT,
+    ImageURL LONGBLOB,
+    UserID INT,
+    Posted_on DATE,
+    productLink VARCHAR(255),
+    FOREIGN KEY (Community_Id) REFERENCES Community(Community_Id),
+    FOREIGN KEY (UserID) REFERENCES Users(U_id)
+);
+
+INSERT INTO posts (PostID, Community_Id, Description, Likes, Dislikes, ImageURL, UserID, Posted_on, productLink) VALUES
+(301, 401, 'Embrace the free-spirited vibe with these Bohemian essentials!', 70, 10, NULL, 106, '2023-01-20', 'http://www.myntra.com/mailers/dress/20dresses/20dresses-women-pretty-pink-bohemian-bustier-dress/13611424/buy'),
+(302, 401, 'Channeling wanderlust through fashion!', 12, 1, NULL, 112, '2023-10-21', 'http://www.myntra.com/mailers/dress/globus/globus-printed-halter-neck-tiered-cotton-maxi-dress/27400736/buy'),
+(303, 402, 'Step into the urban jungle with Style', 25, 6, NULL, 120, '2024-01-07', 'http://www.myntra.com/mailers/topwear/mango/mango-women-white-solid-tailored-jacket/15315374/buy'),
+(304, 405, 'Elevate your street cred with these standout looks!', 60, 23, NULL, 101, '2022-12-31', 'http://www.myntra.com/mailers/apparel-set/ishin/ishin-floral-printed-shoulder-straps-top-with-palazzo-&-shrug/25516168/buy'),
+(305, 402, 'Dive into the street style revolution', 52, 18, NULL, 123, '2023-02-02', 'http://www.myntra.com/mailers/topwear/street-9/street-9-spread-collar-comfort-casual-denim-shirt/29808398/buy'),
+(306, 403, 'Explore athleisure essentials', 109, 37, NULL, 117, '2022-11-30', 'http://www.myntra.com/mailers/topwear/reebok/reebok-neo-structure-speedwick-brand-logo-printed-slim-fit-sports-tshirts/24589028/buy'),
+(307, 404, 'Let your free spirit shine with Glamorous Outfit', 200, 51, NULL, 110, '2022-03-18', 'http://www.myntra.com/mailers/apparel-set/inddus/inddus-abstract-printed-regular-sequinned-pure-silk-kurta-with-trousers-&-dupatta/25312748/buy'),
+(308, 407, 'Art of balancing professionalism and fashion flair', 15, 2, NULL, 108, '2023-06-01', 'http://www.myntra.com/mailers/topwear/tahvo/tahvo-single-breasted-notched-lapel-collar-formal-blazer/29933665/buy'),
+(309, 407, 'Workplace with grace and sophistication', 7, 0, NULL, 125, '2024-07-01', 'http://www.myntra.com/mailers/apparel-set/anouk/anouk-women-white-printed-kurta-with-trousers/17049122/buy'),
+(310, 406, 'Vibrancy of Maharashtra through its unique fashion', 95, 16, NULL, 114, '2024-01-20', 'http://www.myntra.com/mailers/saree/varkala-silk-sarees/varkala-silk-sarees-ethnic-motifs-zari-dhoti-paithani-saree/29686984/buy');
+
+
+1. http://www.myntra.com/mailers/dress/20dresses/20dresses-women-pretty-pink-bohemian-bustier-dress/13611424/buy
+2. http://www.myntra.com/mailers/dress/globus/globus-printed-halter-neck-tiered-cotton-maxi-dress/27400736/buy
+3. http://www.myntra.com/mailers/topwear/mango/mango-women-white-solid-tailored-jacket/15315374/buy
+4. http://www.myntra.com/mailers/apparel-set/ishin/ishin-floral-printed-shoulder-straps-top-with-palazzo-&-shrug/25516168/buy
+5. http://www.myntra.com/mailers/topwear/street-9/street-9-spread-collar-comfort-casual-denim-shirt/29808398/buy
+6. http://www.myntra.com/mailers/topwear/reebok/reebok-neo-structure-speedwick-brand-logo-printed-slim-fit-sports-tshirts/24589028/buy
+7. http://www.myntra.com/mailers/apparel-set/inddus/inddus-abstract-printed-regular-sequinned-pure-silk-kurta-with-trousers-&-dupatta/25312748/buy
+8. http://www.myntra.com/mailers/topwear/tahvo/tahvo-single-breasted-notched-lapel-collar-formal-blazer/29933665/buy
+9. http://www.myntra.com/mailers/apparel-set/anouk/anouk-women-white-printed-kurta-with-trousers/17049122/buy
+10. http://www.myntra.com/mailers/saree/varkala-silk-sarees/varkala-silk-sarees-ethnic-motifs-zari-dhoti-paithani-saree/29686984/buy
+
+
+
+****************COMMUNITYUSERS*****************
+CREATE TABLE communityusers (
+    Community_Id INT,
+    User_Id INT,
+    PRIMARY KEY (Community_Id, User_Id),
+    FOREIGN KEY (Community_Id) REFERENCES Community(Community_Id),
+    FOREIGN KEY (User_Id) REFERENCES Users(U_id)
+);
+
+INSERT INTO CommunityUsers (Community_Id, User_Id) VALUES
+(401, 101),
+(401, 102),
+(401, 103),
+(401, 104),
+(401, 105),
+(402, 106),
+(402, 107),
+(402, 108),
+(402, 109),
+(402, 110),
+(403, 111),
+(403, 112),
+(403, 113),
+(403, 114),
+(403, 115),
+(404, 116),
+(404, 117),
+(404, 118),
+(404, 119),
+(404, 120),
+(405, 121),
+(405, 122),
+(405, 123),
+(405, 124),
+(405, 125),
+(406, 107),
+(406, 117),
+(406, 120),
+(406, 101),
+(406, 113),
+(407, 121),
+(407, 125),
+(407, 112),
+(407, 109),
+(407, 104);
+
+
+
+***************COMMENTS***************
+CREATE TABLE Comments (
+    CommentID INT AUTO_INCREMENT PRIMARY KEY,
+    PostID INT,
+    UserID INT,
+    Comment_Text TEXT,
+    Comment_Date DATETIME,
+    FOREIGN KEY (PostID) REFERENCES posts(PostID),
+    FOREIGN KEY (UserID) REFERENCES users(U_id)
+);
+
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(301, 102, 'Loving the new summer collection! The vibrant colors are amazing.', NOW()),
+(301, 104, 'The quality of the fabric is top-notch. Really impressed!', NOW()),
+(301, 121, 'Just bought the denim jacket, and it fits perfectly!', NOW()),
+(301, 112, 'Can we get more eco-friendly fashion options? Love the idea!', NOW()),
+(301, 115, 'The new arrivals are so trendy. Can’t wait to shop more!', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(302, 104, 'The latest fashion tips on layering are super helpful.', NOW()),
+(302, 108, 'I adore the minimalist style collection. Less is more!', NOW()),
+(302, 117, 'Any recommendations for mixing and matching outfits?', NOW()),
+(302, 124, 'The new sneakers are super comfy and stylish. Great job!', NOW()),
+(302, 123, 'The winter collection looks cozy and chic. Love it!', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(303, 111, 'Fashion trends this season are all about bold patterns.', NOW()),
+(303, 102, 'I appreciate the plus-size options. Inclusivity matters.', NOW()),
+(303, 113, 'The accessories section has some unique pieces. Thumbs up!', NOW()),
+(303, 124, 'The lookbooks are very inspiring. Keep them coming!', NOW()),
+(303, 105, 'Great sale on fall essentials. Just stocked up!', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(304, 101, 'Love the retro vibes in the latest collection.', NOW()),
+(304, 102, 'The workout gear is both functional and stylish.', NOW()),
+(304, 123, 'Any upcoming collections for formal wear?', NOW()),
+(304, 114, 'I’m a fan of the boho chic style. Beautiful designs!', NOW()),
+(304, 115, 'Customer service is fantastic. Quick response times.', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(305, 121, 'The DIY fashion tips are creative and fun.', NOW()),
+(305, 102, 'Love the mix of classic and contemporary styles.', NOW()),
+(305, 113, 'The size guides are accurate and helpful.', NOW()),
+(305, 124, 'The spring collection is fresh and vibrant. Well done!', NOW()),
+(305, 105, 'Looking forward to more sustainable fashion options.', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(306, 111, 'The fashion blog section is insightful and trendy.', NOW()),
+(306, 117, 'I’m impressed with the variety in the accessories.', NOW()),
+(306, 120, 'The customer reviews are very helpful. Thanks!', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(307, 119, 'The color coordination tips are spot on.', NOW()),
+(307, 116, 'I found the perfect blazer for work. Thanks!', NOW()),
+(307, 122, 'Can you suggest some fashion-forward accessories?', NOW()),
+(307, 118, 'The new prints are bold and beautiful.', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(308, 119, 'The festival outfits are just what I needed.', NOW()),
+(308, 120, 'Love the variety in the casual wear section.', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(309, 101, 'The fashion tips for different body types are great.', NOW()),
+(309, 102, 'I love the statement jewelry pieces. Very unique.', NOW()),
+(309, 103, 'The fabric quality of the new line is exceptional.', NOW());
+INSERT INTO Comments (PostID, UserID, Comment_Text, Comment_Date) VALUES
+(310, 117, 'The men’s collection is stylish and versatile.', NOW()),
+(310, 118, 'I found the perfect gift from the new collection.', NOW()),
+(310, 116, 'The jackets are warm and trendy. Just what I needed.', NOW());
+
+
+******************USERREACTEDONPOST*****************
+CREATE TABLE UserReactedOnPost (
+    Post_Id INT,
+    User_Id INT,
+    Reaction_Status INT,
+    PRIMARY KEY (Post_Id, User_Id),
+    FOREIGN KEY (Post_Id) REFERENCES Posts(PostID),
+    FOREIGN KEY (User_Id) REFERENCES Users(U_id)
+);
+
+INSERT INTO userreactedonpost (Post_Id, User_Id, Reaction_Status) VALUES
+(301, 101, 0),
+(301, 102, 1),
+(301, 103, 2),
+(302, 104, 1),
+(302, 105, 2),
+(302, 106, 1),
+(302, 107, 1),
+(303, 108, 1),
+(303, 109, 1),
+(303, 110, 2),
+(304, 111, 1),
+(304, 112, 1),
+(304, 113, 1),
+(305, 114, 0),
+(305, 115, 1),
+(306, 116, 1),
+(306, 117, 1),
+(307, 118, 1),
+(307, 119, 2),
+(308, 120, 0),
+(309, 121, 1),
+(309, 122, 1),
+(309, 123, 1),
+(310, 124, 1),
+(310, 125, 2);
