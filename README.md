@@ -12,7 +12,6 @@ COLLABORATORS :
 - [Aditi Jaikar](https://github.com/aditi2503jaikar)
 
 
-https://github.com/user-attachments/assets/c1224395-cf52-4713-ba72-7e81abec9aa6
 
 
 Tech Stack :-
