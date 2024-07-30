@@ -22,10 +22,12 @@ Frontend  :
 - CSS
 - JavaScript
   
-Frontend  :  
+Backend  :  
 -------
 - Node.js
 - Express.js
+- Python
+  
 
 Database  :  
 -------
