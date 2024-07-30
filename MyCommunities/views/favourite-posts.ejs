@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favourite Posts</title>
+  <link rel="stylesheet" href="/styles/communityposts.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .container {
+      position: relative;
+    }
+
+    .post-card {
+      border: 1px solid #ddd;
+      padding: 25px;
+      margin: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .post-img img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .post-details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .posts .remove-favorite-button {
+      background-color: #d9534f; /* Red color */
+      color: white;
+    }
+
+    .posts .view-comments-button {
+      background-color: #CB6074;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      function updateLikeCount(postId, newLikeCount) {
+        $('#like-count-' + postId).text(newLikeCount);
+      }
+
+      function updateDislikeCount(postId, newDislikeCount) {
+        $('#dislike-count-' + postId).text(newDislikeCount);
+      }
+
+      function setButtonColors() {
+        $('.like-button').each(function() {
+          const reactionStatus = $(this).data('reaction-status');
+          if (reactionStatus === 1) {
+            $(this).css('background-color', 'green');
+            $(this).siblings('.dislike-button').css('background-color', 'pink');
+          } else if (reactionStatus === 2) {
+            $(this).css('background-color', 'pink');
+            $(this).siblings('.dislike-button').css('background-color', 'green');
+          } else {
+            $(this).css('background-color', '');
+            $(this).siblings('.dislike-button').css('background-color', '');
+          }
+        });
+      }
+
+      setButtonColors();
+
+      $('.like-button').click(function() {
+        const postId = $(this).data('post-id');
+        $.ajax({
+          url: '/like',
+          method: 'POST',
+          data: { postId: postId },
+          success: function(response) {
+            updateLikeCount(postId, response.newLikeCount);
+            updateDislikeCount(postId, response.newDislikeCount);
+            setButtonColors();
+          },
+          error: function(err) {
+            console.error('Like Error:', err);
+          }
+        });
+      });
+
+      $('.dislike-button').click(function() {
+        const postId = $(this).data('post-id');
+        $.ajax({
+          url: '/dislike',
+          method: 'POST',
+          data: { postId: postId },
+          success: function(response) {
+            updateDislikeCount(postId, response.newDislikeCount);
+            updateLikeCount(postId, response.newLikeCount);
+            setButtonColors();
+          },
+          error: function(err) {
+            console.error('Dislike Error:', err);
+          }
+        });
+      });
+
+      $('.remove-favorite-button').click(function() {
+        if (confirm('Are you sure you want to remove this post from your favorites?')) {
+          const postId = $(this).data('post-id');
+          $.post('/remove-favorite', { postId: postId }, function(response) {
+            if (response.success) {
+              location.reload();
+            } else {
+              alert('Error removing post from favorites.');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Favourite Posts</h1>
+    <a href="/explore" class="back-button">Back to Explore</a>
+    <div class="posts">
+      <% if (posts.length > 0) { %>
+        <% posts.forEach(post => { %>
+          <div class="post-card">
+            <div class="post-img">
+              <% if (post.imageURL) { %>
+                <img src="data:image/jpeg;base64,<%= post.imageURL %>" alt="Post Image">
+              <% } else { %>
+                <img src="/images/logo.png" alt="Default Image">
+              <% } %>
+            </div>
+            <div class="post-details">
+              <span><i class="fa fa-user"></i> <%= post.Author %></span>
+              <span><i class="fa fa-calendar"></i> <%= new Date(post.Posted_on).toLocaleDateString() %></span>
+              <span><i class="fa fa-users"></i> <%= post.Community_Name %></span>
+            </div>
+            <div class="post-text">
+              <p><%= post.Description %></p>
+            </div>
+            <div class="post-actions">
+              <button class="view-comments-button" data-post-id="<%= post.PostID %>">
+                <a href="/community/<%= post.Community_Id %>/post/<%= post.PostID %>/comments" class="link-button">View Comments</a>
+              </button>
+              <button class="like-button" data-post-id="<%= post.PostID %>" data-reaction-status="<%= post.reaction_status %>">
+                Like (<span id="like-count-<%= post.PostID %>"><%= post.Likes %></span>)
+              </button>
+              <button class="dislike-button" data-post-id="<%= post.PostID %>" data-reaction-status="<%= post.reaction_status %>">
+                Dislike (<span id="dislike-count-<%= post.PostID %>"><%= post.Dislikes %></span>)
+              </button>
+              <% if (post.productLink) { %>
+                <a href="<%= post.productLink %>" target="_blank" class="link-button">Link to Product</a>
+              <% } else { %>
+                <span>No link available</span>
+              <% } %>
+              <button class="remove-favorite-button" data-post-id="<%= post.PostID %>">Remove from Favorites</button>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>You have no favourite posts yet.</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

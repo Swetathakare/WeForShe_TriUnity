@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/styles/dashboard.css">
+</head>
+<body>
+  <div id="background" class="background"></div>
+  <div id="content">
+    <div class="button-container">
+      <button class="circular-button" id="menuButton" onclick="toggleMenu()">+</button>
+      <div class="dropdown-menu" id="menu">
+        <div class="menu-item">
+          <a href="/dashboard?user_id=<%= userId %>">My Stylist</a>
+        </div>
+        <div class="menu-item">
+          <a href="/dashboard?user_id=<%= userId %>">Maya</a>
+        </div>
+        <div class="menu-item">
+          <a href="/explore?user_id=<%= userId %>">Explore Communities</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="search-container">
+      <form action="/dashboard/search" method="get">
+        <input type="text" name="query" placeholder="Search for Products...">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <!-- Display Recommendations -->
+    <% if (typeof recommendations !== 'undefined' && recommendations.length > 0) { %>
+      <div class="recommendations">
+        <div class="recommendations-header">
+          <h2>Recommended Communities</h2>
+          <button class="close-btn" onclick="closeRecommendations()">×</button>
+        </div>
+        <ul>
+          <% recommendations.forEach(function(community) { %>
+            <li><%= community.Community_Name %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } else if (typeof recommendations !== 'undefined') { %>
+      <div class="recommendations">
+        <div class="recommendations-header">
+          <h2>Recommended Communities</h2>
+          <button class="close-btn" onclick="closeRecommendations()">×</button>
+        </div>
+        <p>No recommendations found.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      const background = document.getElementById('background');
+      menu.classList.toggle('show');
+      background.classList.toggle('blur');
+    }
+
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('menu');
+      const menuButton = document.getElementById('menuButton');
+      const isClickInsideMenu = menu.contains(event.target);
+      const isClickInsideButton = menuButton.contains(event.target);
+
+      if (!isClickInsideMenu && !isClickInsideButton && menu.classList.contains('show')) {
+        menu.classList.remove('show');
+        const background = document.getElementById('background');
+        background.classList.remove('blur');
+      }
+    });
+
+    function closeRecommendations() {
+      const recommendations = document.querySelector('.recommendations');
+      recommendations.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

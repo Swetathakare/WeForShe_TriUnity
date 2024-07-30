@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Reward Points</title>
+  <link rel="stylesheet" href="/styles/reward-points.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="/explore" class="top-left-button">Back to Explore</a>
+  <div class="container">
+    <h1>My Reward Points</h1>
+    <p class="points">
+      <%= myntraPoints %>
+      <span class="star-icon">&#9733;</span> <!-- Unicode star symbol -->
+    </p>
+    <button class="convert-button" onclick="convertPoints()">Convert to Myntra Wallet</button>
+  </div>
+
+  <script>
+    function convertPoints() {
+      const points = `<%= myntraPoints %>`;
+      const cash = points / 10;
+      if (points > 0) {
+        fetch('/user/convert-points', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ points })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(`Your Myntra wallet is updated with ₹${cash}. Enjoy Shopping!!!`);
+            window.location.reload();
+          } else {
+            alert('Conversion failed. Please try again.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+        });
+      } else {
+        alert('You do not have enough points to convert.');
+      }
+    }
+  </script>
+</body>
+</html>
+

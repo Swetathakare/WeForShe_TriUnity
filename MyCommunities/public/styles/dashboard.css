@@ -1,0 +1,190 @@
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+#background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/images/myntra.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: 0;
+    transition: filter 0.3s;
+}
+
+#background.blur {
+    filter: blur(5px);
+}
+
+#content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+}
+
+.circular-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgb(1, 1, 21);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    z-index: 2;
+}
+
+.circular-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    bottom: 120px;
+    right: -30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.menu-item {
+    margin-bottom: 10px;
+}
+
+.menu-item a {
+    padding: 15px 10px;
+    display: block;
+    color: rgb(3, 3, 13);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+.menu-item a:hover {
+    background: rgb(1, 1, 21);
+    color: white;
+}
+
+.search-container {
+    margin-top: 23px;
+    margin-right: 320px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    width: 450px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.search-container button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: rgb(1, 1, 21);
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.search-container button[type="submit"]:hover {
+    background-color: rgb(3, 3, 45);
+}
+
+.recommendations {
+    width: 30%;
+    margin-right: 450px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 1px;
+    position: relative;
+}
+
+.recommendations-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recommendations h2 {
+    margin: 0;
+    font-size: 18px;
+    color: rgb(1, 1, 21);
+}
+
+.recommendations .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: rgb(1, 1, 21);
+}
+
+.recommendations ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recommendations ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.recommendations ul li:last-child {
+    border-bottom: none;
+}
+
+.recommendations p {
+    margin: 0;
+    color: rgb(3, 3, 13);
+}

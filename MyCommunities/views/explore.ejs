@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Communities</title>
+  <link rel="stylesheet" href="/styles/explore.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="more-menu">
+      <i class="fas fa-ellipsis-v"></i>
+      <div class="dropdown-content">
+        <a href="/user/my-posts">My Posts</a>
+        <a href="/user/favourite-posts">Favourite Posts</a>
+        <a href="/user/my-reward-points">My Reward Points</a>
+      </div>
+    </div>
+    <a href="/dashboard" class="back-button">Back to Dashboard</a>
+    <form action="/explore" method="GET" class="search-form">
+      <input type="text" name="search" placeholder="Search communities by name..." class="search-input" />
+      <button type="submit" class="search-button">Search</button>
+    </form>
+
+    <% if (searchResults) { %>
+      <h2>Search Results</h2>
+      <div class="search-results">
+        <% if (searchResults.length > 0) { %>
+          <% searchResults.forEach(community => { %>
+              <div class="community-image">
+                <img src="data:image/jpeg;base64,<%= community.picture ? community.picture.toString('base64') : '' %>" alt="Community Image">
+              </div>
+              <div class="community-info">
+                <% if (community.isJoined) { %>
+                  <a href="/community/<%= community.Community_Id %>/posts" class="community-button">
+                    <%= community.Community_Name %>
+                  </a>
+                <% } else { %>
+                  <h3><a href="/community/<%= community.Community_Id %>"><%= community.Community_Name %></a></h3>
+                  <p class="user-count"><%= community.user_count %> Followers</p>
+                  <form action="/join" method="POST">
+                    <input type="hidden" name="community_id" value="<%= community.Community_Id %>">
+                    <button class="join-button" type="submit">Join</button>
+                  </form>
+                <% } %>
+              </div>
+          <% }); %>
+        <% } else { %>
+          <p>No match found</p>
+        <% } %>
+      </div>
+    <% } %>
+
+    <h2>My Communities</h2>
+    <div class="my-communities">
+      <% userCommunities.forEach(community => { %>
+        <div class="mycommunity">
+          <div class="community-image">
+            <img src="data:image/jpeg;base64,<%= community.picture ? community.picture.toString('base64') : '' %>" alt="Community Image">
+          </div>
+          <div class="community-info">
+            <h3><a href="/community/<%= community.Community_Id %>/posts" class="community-button">
+              <%= community.Community_Name %>
+            </a></h3>
+            <% if (community.unreadCount > 0) { %>
+              <span class="unread-message"><%= community.unreadCount %> unread posts</span>
+            <% } else { %>
+              <span class="unread-message">You are up to date</span>
+            <% } %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <h2>Explore Communities</h2>
+    <div class="explore-communities">
+      <% exploreCommunities.forEach(community => { %>
+        <div class="excommunity">
+          <div class="community-image">
+            <img src="data:image/jpeg;base64,<%= community.picture ? community.picture.toString('base64') : '' %>" alt="Community Image">
+          </div>
+          <div class="community-info">
+            <h3><a href="/community/<%= community.Community_Id %>"><%= community.Community_Name %></a></h3>
+            <p class="user-count"><%= community.user_count %> Followers</p>
+            <form action="/join" method="POST">
+              <input type="hidden" name="community_id" value="<%= community.Community_Id %>">
+              <button class="join-button" type="submit">Join</button>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <button class="suggest-community-button" onclick="document.getElementById('suggestModal').style.display='block'">Suggest Community</button>
+    <div id="suggestModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="document.getElementById('suggestModal').style.display='none'">&times;</span>
+        <h2>Suggest a Community</h2>
+        <form id="suggestForm">
+          <label for="suggestion">Community Suggestion:</label>
+          <input type="text" id="suggestion" name="suggestion" required>
+          <button type="submit" class="submit-button">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    window.onclick = function(event) {
+      var modal = document.getElementById('suggestModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    document.getElementById('suggestForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const suggestion = document.getElementById('suggestion').value;
+
+      fetch('/suggest-community', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ suggestion })
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert(data);
+        document.getElementById('suggestModal').style.display = 'none';
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
+//he explore.ejs madhe add kar change kela aahe thoda

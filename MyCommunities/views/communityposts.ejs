@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= community.Community_Name %> Posts</title>
+  <link rel="stylesheet" href="/styles/communityposts.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    /* Existing CSS */
+    .container {
+      position: relative;
+    }
+    .add-post-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 20px;
+      font-size: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .add-post-button:hover {
+      background-color: #ff1493;
+    }
+    .post-actions {
+      position: relative;
+    }
+    .menu-button {
+      background-color: #CB6074;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      position: absolute;
+      bottom: 200px;
+      right: 10px;
+    }
+    .dropdown {
+      position: absolute;
+      bottom: 110px;
+      right: 10px;
+      display: none;
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .dropdown-option {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .dropdown-option:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Make the community name a clickable link -->
+    <h1><a href="/community/<%= community.Community_Id %>"><%= community.Community_Name %></a></h1>
+    <!-- Back Button -->
+    <a href="/explore" class="back-button">Back to Explore</a>
+    <div class="posts">
+      <% posts.forEach(post => { %>
+        <div class="post-card">
+          <div class="post-img">
+            <% if (post.imageURL) { %>
+              <img src="data:image/jpeg;base64,<%= post.imageURL %>" alt="Post Image">
+            <% } else { %>
+              <img src="/images/logo.png" alt="Default Image">
+            <% } %>
+          </div>
+          <div class="post-details">
+            <span><i class="fa fa-user"></i> <%= post.Author %></span>
+            <span><i class="fa fa-calendar"></i> <%= new Date(post.Posted_on).toLocaleDateString() %></span>
+          </div>
+          <div class="post-text">
+            <p><%= post.Description %></p>
+          </div>
+          <div class="post-actions">
+            <button class="view-comments-button" data-post-id="<%= post.PostID %>">
+                <a href="/community/<%= community.Community_Id %>/post/<%= post.PostID %>/comments" class="link-button">View Comments</a>
+            </button>
+            <!-- Like Button -->
+            <button class="like-button" data-post-id="<%= post.PostID %>" data-reaction-status="<%= post.reaction_status %>">
+              Like (<span id="like-count-<%= post.PostID %>"><%= post.Likes %></span>)
+            </button>
+            <!-- Dislike Button -->
+            <button class="dislike-button" data-post-id="<%= post.PostID %>" data-reaction-status="<%= post.reaction_status %>">
+              Dislike (<span id="dislike-count-<%= post.PostID %>"><%= post.Dislikes %></span>)
+            </button>
+            <% if (post.productLink) { %>
+              <a href="<%= post.productLink %>" target="_blank" class="link-button">Link to Product</a>
+            <% } else { %>
+              <span>No link available</span>
+            <% } %>
+            <!-- Menu Button with Dropdown -->
+            <button class="menu-button">...</button>
+            <div class="dropdown">
+              <button class="dropdown-option add-to-favorites-button" data-post-id="<%= post.PostID %>" data-is-favorite="<%= post.isFavorite %>">Add to Favorites</button>
+              <button class="dropdown-option">Report</button>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    <!-- Example button on the community page -->
+    <a href="/new-post?community_id=<%= community.Community_Id %>" class="add-post-button">Add Post +</a>
+  </div>
+  <script>
+    $(document).ready(function() {
+      // Handle click event for Add to Favorites button
+      $('.add-to-favorites-button').click(function() {
+        const postId = $(this).data('post-id');
+        const isFavorite = $(this).data('is-favorite');
+
+        if (isFavorite) {
+          alert('This post is already in your favorites.');
+        } else {
+          $.ajax({
+            url: '/add-to-favorites',
+            method: 'POST',
+            data: { postId: postId },
+            success: function(response) {
+              if (response.success) {
+                alert('Successfully added to favorites.');
+                // Update the button state
+                $('.add-to-favorites-button[data-post-id="' + postId + '"]').data('is-favorite', true);
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function(err) {
+              console.error('Add to Favorites Error:', err);
+              alert('Error adding post to favorites.');
+            }
+          });
+        }
+      });
+
+      // Toggle dropdown menu visibility
+      $('.menu-button').click(function() {
+        $(this).siblings('.dropdown').toggle();
+      });
+
+      // Hide dropdown when clicking outside
+      $(document).click(function(event) {
+        if (!$(event.target).closest('.menu-button, .dropdown').length) {
+          $('.dropdown').hide();
+        }
+      });
+
+      // Example function for scrolling to bottom
+      function scrollToBottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+      scrollToBottom();
+
+      // Function to update like count
+      function updateLikeCount(postId, newLikeCount) {
+        $('#like-count-' + postId).text(newLikeCount);
+      }
+
+      // Function to update dislike count
+      function updateDislikeCount(postId, newDislikeCount) {
+        $('#dislike-count-' + postId).text(newDislikeCount);
+      }
+
+      // Function to set button colors based on reaction status
+      function setButtonColors() {
+        $('.like-button').each(function() {
+          const reactionStatus = $(this).data('reaction-status');
+          if (reactionStatus === 1) {
+            $(this).css('background-color', 'green');
+            $(this).siblings('.dislike-button').css('background-color', 'pink');
+          } else if (reactionStatus === 2) {
+            $(this).css('background-color', 'pink');
+            $(this).siblings('.dislike-button').css('background-color', 'green');
+          } else {
+            $(this).css('background-color', '');
+            $(this).siblings('.dislike-button').css('background-color', '');
+          }
+        });
+      }
+
+      setButtonColors();
+
+      // Like button click event
+      $('.like-button').click(function() {
+        const postId = $(this).data('post-id');
+        $.ajax({
+          url: '/like',
+          method: 'POST',
+          data: { postId: postId },
+          success: function(response) {
+            console.log('Like Success:', response);
+            updateLikeCount(postId, response.newLikeCount); // Update like count from server response
+            updateDislikeCount(postId, response.newDislikeCount); // Update dislike count from server response
+            setButtonColors(); // Update button colors
+          },
+          error: function(err) {
+            console.error('Like Error:', err);
+            // Handle errors or display error message
+          }
+        });
+      });
+
+      // Dislike button click event
+      $('.dislike-button').click(function() {
+        const postId = $(this).data('post-id');
+        $.ajax({
+          url: '/dislike',
+          method: 'POST',
+          data: { postId: postId },
+          success: function(response) {
+            console.log('Dislike Success:', response);
+            updateDislikeCount(postId, response.newDislikeCount); // Update dislike count from server response
+            updateLikeCount(postId, response.newLikeCount); // Update like count from server response
+            setButtonColors(); // Update button colors
+          },
+          error: function(err) {
+            console.error('Dislike Error:', err);
+            // Handle errors or display error message
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

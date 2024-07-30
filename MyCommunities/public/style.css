@@ -1,0 +1,103 @@
+body {
+  padding-top: 100px;
+  display: flex; /* Center entire content vertically */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically (redundant but can be helpful) */
+  min-height: 100vh; /* Set minimum viewport height for full-page centering */
+  margin: 0; /* Remove default body margin */
+  font-family: Arial, sans-serif; /* Set default font family */
+}
+
+.post-container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements horizontally within the container */
+  margin: 20px; /* Add some margin for separation */
+  border: 1px solid #ccc; /* Add a border for the container (optional) */
+  padding: 10px; /* Add some padding for aesthetics */
+  background-color: #fff; /* Set background color for the container (optional) */
+  border-radius: 5px; /* Add rounded corners for the container (optional) */
+}
+
+.post-image-container {
+  width: 150px; /* Fixed width for the box */
+  height: 150px; /* Fixed height for the box */
+  border: 1px solid #ccc; /* Add a border for the image box */
+  margin-bottom: 10px; /* Add some margin for separation */
+  position: relative; /* Enable positioning for the image */
+}
+
+#preview {
+  width: 100%; /* Set image width to fill the container */
+  height: 100%; /* Set image height to fill the container */
+  object-fit: cover; /* Maintain aspect ratio and scale to fit */
+  position: absolute; /* Position the image absolutely within the box */
+  top: 0; /* Align image to the top */
+  left: 0; /* Align image to the left */
+}
+
+.hidden {
+  display: none; /* Hide the element initially */
+}
+
+label[for="image"] {
+  display: block; /* Make it a block element */
+  text-align: center; /* Center the label text */
+  margin-bottom: 5px; /* Add some margin for separation */
+}
+
+input[type="file"] {
+  display: block; /* Make it a block element */
+  border: 1px solid #ccc; /* Add a border for visual feedback */
+  padding: 5px; /* Add some padding for usability */
+  cursor: pointer; /* Change cursor to indicate clickability */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  h2 {
+    color: #333;
+  }
+
+  form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    padding: 10px 15px;
+    background: #007BFF;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #0056b3;
+}

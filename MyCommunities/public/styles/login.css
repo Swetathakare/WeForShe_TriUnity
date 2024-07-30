@@ -1,0 +1,88 @@
+body {
+    background: linear-gradient(to right, #56204e, #e7bdd9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 150px; /* Adjusted size for the logo */
+    height: auto;
+    border-radius: 50% / 50%; /* Make the logo oval */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add border shadow */
+    border: 2px solid #fff; /* Optional: Add a border around the logo */
+}
+
+.login-container {
+    background: white;
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    width: 600px; /* Adjusted width for the split layout */
+    height: 400px; /* Adjusted height for the split layout */
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.left-section, .right-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.left-section {
+    width: 50%;
+    padding: 40px; /* Adjust padding for better alignment */
+    box-sizing: border-box;
+}
+
+.right-section {
+    width: 50%;
+    background: url('/images/shopping_bag.jpg') no-repeat center center; /* Update the image path */
+    background-size: cover;
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #ff9a9e;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #ff9a9e;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #fecfef;
+}

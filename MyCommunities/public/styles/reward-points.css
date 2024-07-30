@@ -1,0 +1,104 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: url('/images/Celeb.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+.top-left-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #e91e63;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.top-left-button:hover {
+  background-color: #d81b60;
+  transform: translateY(-2px);
+}
+
+.top-left-button:active {
+  background-color: #c2185b;
+  transform: translateY(2px);
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 350px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+h1 {
+  color: #e91e63;
+  margin-bottom: 20px;
+  font-size: 2em;
+  font-family: 'Pacifico', cursive; /* Apply the new cursive font here */
+}
+
+.points {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #4caf50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star-icon {
+  font-size: 1em; /* Increase the size here */
+  color: #FFD700; /* Gold color */
+  margin-left: 10px;
+  padding-bottom: 4px;
+}
+
+.back-button, .convert-button {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #dba61b;
+  color: rgb(4, 3, 3);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.convert-button {
+  margin-left: 10px;
+}
+
+.back-button:hover, .convert-button:hover {
+  background-color: #ffd000;
+  transform: translateY(-2px);
+}
+
+.back-button:active, .convert-button:active {
+  background-color: #cf9a07;
+  transform: translateY(2px);
+}
